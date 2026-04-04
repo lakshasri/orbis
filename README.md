@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo_light.png" alt="Orbis Logo" width="200" />
+  <img src="assets/logo_dark.png" alt="Orbis Logo" width="200" />
   <h1>Orbis</h1>
   <p><strong>Secure Document Approval Workflow Backend</strong></p>
 </div>
