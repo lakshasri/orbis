@@ -19,7 +19,8 @@ async function login(email: string, password: string): Promise<LoginResult> {
 }
 
 describe('rbac and workflow integration', () => {
-  beforeAll(async () => {
+  beforeAll(
+    async () => {
     await prisma.userRole.deleteMany();
     await prisma.document.deleteMany();
     await prisma.auditEvent.deleteMany();
@@ -58,7 +59,9 @@ describe('rbac and workflow integration', () => {
         { userId: approver.id, roleId: approverRole.id }
       ]
     });
-  });
+  },
+  15000
+  );
 
   afterAll(async () => {
     await prisma.$disconnect();
