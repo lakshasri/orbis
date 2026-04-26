@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { requireAuth } from '../auth/auth.middleware';
 import { requireRoles } from '../auth/authorization.middleware';
 import { userService } from './user.service';
+import { auditService } from '../audits/audit.service';
 
 const createUserSchema = z.object({
   email: z.string().email(),
@@ -27,6 +28,8 @@ usersRouter.post('/', requireAuth, requireRoles('ADMIN'), async (req, res) => {
     res.status(409).json({ error: 'user already exists' });
     return;
   }
+
+  await auditService.log(req.auth?.userId ?? null, 'user_created', 'user', user.id);
 
   res.status(201).json({
     id: user.id,
@@ -57,6 +60,8 @@ usersRouter.post(
       res.status(404).json({ error: 'user or role not found' });
       return;
     }
+
+    await auditService.log(req.auth?.userId ?? null, 'role_assigned', 'user_role', userId);
 
     res.status(200).json({
       id: updatedUser.id,
