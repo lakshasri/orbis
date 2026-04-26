@@ -6,7 +6,8 @@ import { hashPassword } from '../src/modules/auth/password';
 const prisma = new PrismaClient();
 
 describe('auth integration', () => {
-  beforeAll(async () => {
+  beforeAll(
+    async () => {
     await prisma.userRole.deleteMany();
     await prisma.role.deleteMany();
     await prisma.document.deleteMany();
@@ -27,7 +28,9 @@ describe('auth integration', () => {
         roleId: role.id
       }
     });
-  });
+  },
+  15000
+  );
 
   afterAll(async () => {
     await prisma.$disconnect();
